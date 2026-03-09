@@ -1,0 +1,292 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<title>Para Ti ❤️</title>
+
+<style>
+
+body{
+margin:0;
+height:100vh;
+overflow:hidden;
+font-family:'Segoe UI',sans-serif;
+background: radial-gradient(circle at top,#1a1a2e,#000);
+color:white;
+display:flex;
+justify-content:center;
+align-items:center;
+text-align:center;
+}
+
+/* estrellas */
+
+.star{
+position:absolute;
+width:2px;
+height:2px;
+background:white;
+animation:twinkle 3s infinite;
+}
+
+@keyframes twinkle{
+0%,100%{opacity:0.2;}
+50%{opacity:1;}
+}
+
+/* tarjeta */
+
+.card{
+background:rgba(0,0,0,0.55);
+padding:40px;
+border-radius:20px;
+max-width:750px;
+backdrop-filter:blur(12px);
+box-shadow:0 0 40px rgba(255,0,120,0.4);
+animation:fadeIn 2s ease;
+}
+
+@keyframes fadeIn{
+from{opacity:0;transform:translateY(40px);}
+to{opacity:1;transform:translateY(0);}
+}
+
+h1{
+font-size:40px;
+color:#ff4d88;
+margin-bottom:20px;
+}
+
+#texto{
+font-size:20px;
+line-height:1.7;
+min-height:250px;
+}
+
+/* botón */
+
+button{
+margin-top:25px;
+padding:12px 30px;
+border:none;
+border-radius:25px;
+font-size:16px;
+background:#ff4d88;
+color:white;
+cursor:pointer;
+transition:0.3s;
+}
+
+button:hover{
+background:#ff1f66;
+transform:scale(1.08);
+}
+
+/* corazones */
+
+.heart{
+position:absolute;
+color:#ff4d6d;
+font-size:20px;
+animation:float 6s linear infinite;
+}
+
+@keyframes float{
+0%{transform:translateY(100vh) scale(0.5);opacity:0;}
+50%{opacity:1;}
+100%{transform:translateY(-10vh) scale(1.3);opacity:0;}
+}
+
+/* rosas */
+
+.rose{
+position:absolute;
+font-size:22px;
+animation:fall 7s linear infinite;
+}
+
+@keyframes fall{
+0%{transform:translateY(-10vh);}
+100%{transform:translateY(110vh);}
+}
+
+/* nave */
+
+.rocket{
+position:absolute;
+font-size:50px;
+bottom:-100px;
+left:50%;
+transform:translateX(-50%);
+opacity:0;
+}
+
+.launch{
+animation:launch 6s linear forwards;
+}
+
+@keyframes launch{
+0%{bottom:-100px;opacity:1;}
+100%{bottom:120vh;opacity:0;}
+}
+
+</style>
+</head>
+
+<body>
+
+<div class="card">
+
+<h1>Para Ti ❤️</h1>
+
+<p id="texto"></p>
+
+<button onclick="mostrarMensaje()">Leer lo que siento 💌</button>
+
+<div id="respuesta" style="display:none;margin-top:25px;font-size:22px;">
+¿Te gustaría intentar algo bonito conmigo? ❤️
+</div>
+
+</div>
+
+<div class="rocket" id="rocket">🚀</div>
+
+<!-- música -->
+
+<iframe width="0" height="0"
+src="https://www.youtube.com/embed/7-Ikexq03O0?autoplay=1&loop=1&playlist=7-Ikexq03O0"
+allow="autoplay">
+</iframe>
+
+<script>
+
+/* estrellas */
+
+for(let i=0;i<120;i++){
+let star=document.createElement("div");
+star.className="star";
+star.style.top=Math.random()*100+"vh";
+star.style.left=Math.random()*100+"vw";
+star.style.animationDuration=(Math.random()*3+2)+"s";
+document.body.appendChild(star);
+}
+
+/* corazones */
+
+function crearCorazon(){
+const heart=document.createElement("div");
+heart.className="heart";
+heart.innerHTML="❤";
+heart.style.left=Math.random()*100+"vw";
+heart.style.fontSize=(Math.random()*25+10)+"px";
+heart.style.animationDuration=(Math.random()*3+3)+"s";
+
+document.body.appendChild(heart);
+
+setTimeout(()=>{heart.remove();},6000);
+}
+
+setInterval(crearCorazon,300);
+
+/* rosas */
+
+function crearRosa(){
+const rosa=document.createElement("div");
+rosa.className="rose";
+rosa.innerHTML="🌹";
+rosa.style.left=Math.random()*100+"vw";
+
+document.body.appendChild(rosa);
+
+setTimeout(()=>{rosa.remove();},7000);
+}
+
+setInterval(crearRosa,1200);
+
+/* mensaje */
+
+const mensaje = `
+Quiero decirte algo desde lo más sincero de mi corazón.
+
+Tal vez antes no supe expresarlo bien.
+Tal vez mis palabras no fueron suficientes
+para mostrar lo importante que eres para mí.
+
+Pero la verdad es que contigo me siento diferente.
+
+Contigo puedo ser yo mismo.
+Puedo reír, hablar de cualquier cosa,
+enojarme, llorar, equivocarme,
+y aun así sentir paz cuando estoy contigo.
+
+Eso es algo que no se encuentra todos los días.
+
+Eres alguien muy especial para mí.
+Alguien que llegó a mi vida
+y poco a poco empezó a ocupar un lugar muy importante en mi corazón.
+
+No busco algo perfecto.
+Solo algo real, sincero y bonito.
+
+Y si algún día quieres intentarlo conmigo,
+me encantaría construir algo juntos.
+
+Porque cuando estoy contigo,
+mi corazón simplemente se siente en casa.
+
+Y si algún día quieres...
+podríamos incluso decir:
+
+vámonos a marte juntos. ❤️
+`;
+
+let i=0;
+
+function escribir(){
+
+if(i < mensaje.length){
+
+document.getElementById("texto").innerHTML += mensaje.charAt(i);
+
+if(mensaje.substring(i,i+15).includes("marte")){
+lanzarCohete();
+}
+
+i++;
+
+setTimeout(escribir,40);
+
+}else{
+
+document.getElementById("respuesta").style.display="block";
+
+}
+
+}
+
+function mostrarMensaje(){
+document.getElementById("texto").innerHTML="";
+i=0;
+escribir();
+}
+
+/* cohete */
+
+function lanzarCohete(){
+
+let rocket=document.getElementById("rocket");
+
+rocket.classList.add("launch");
+
+setTimeout(()=>{
+
+rocket.classList.remove("launch");
+
+},6000);
+
+}
+
+</script>
+
+</body>
+</html>
